@@ -1,8 +1,9 @@
 from ikomia import dataprocess
 from ikomia.dnn import dnntrain, datasetio
+import os
 import copy
 # Your imports below
-import MaskRCNN
+from MaskRCNN import MaskRCNN
 
 
 # --------------------
@@ -24,6 +25,7 @@ class MaskRCNNTrainParam(dataprocess.CDnnTrainProcessParam):
         self.weight_decay = 0.0005
         self.export_pth = True
         self.export_onnx = False
+        self.output_folder = os.path.dirname(os.path.realpath(__file__)) + "/models/"
 
     def setParamMap(self, paramMap):
         # Set parameters values from Ikomia application
@@ -33,6 +35,7 @@ class MaskRCNNTrainParam(dataprocess.CDnnTrainProcessParam):
         self.input_size = int(paramMap["input_size"])
         self.export_pth = bool(paramMap["export_pth"])
         self.export_onnx = bool(paramMap["export_onnx"])
+        self.output_folder = paramMap["output_folder"]
 
     def getParamMap(self):
         # Send parameters values to Ikomia application
@@ -42,6 +45,7 @@ class MaskRCNNTrainParam(dataprocess.CDnnTrainProcessParam):
         param_map["input_size"] = str(self.input_size)
         param_map["export_pth"] = str(self.export_pth)
         param_map["export_onnx"] = str(self.export_onnx)
+        param_map["output_folder"] = self.output_folder
         return param_map
 
 
@@ -62,7 +66,7 @@ class MaskRCNNTrainProcess(dnntrain.TrainProcess):
         else:
             self.setParam(copy.deepcopy(param))
 
-        self.trainer = MaskRCNN.MaskRcnn(self.getParam())
+        self.trainer = MaskRCNN(self.getParam())
 
     def getProgressSteps(self, eltCount=1):
         # Function returning the number of progress steps for this process
@@ -121,7 +125,7 @@ class MaskRCNNTrainProcessFactory(dataprocess.CProcessFactory):
                                 "masks). You can find one in the Ikomia marketplace or implement your own via " \
                                 "the Ikomia API."
         self.info.authors = "Ikomia"
-        self.info.version = "1.0.0"
+        self.info.version = "1.1.0"
         self.info.year = 2020
         self.info.license = "MIT License"
         self.info.repo = "https://github.com/Ikomia-dev"

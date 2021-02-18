@@ -1,6 +1,7 @@
 import os
 import copy
 import torch
+from datetime import datetime
 from ikomia.dnn.torch import models, datasetmapper
 import ikomia.dnn.torch.utils as ikutils
 from torchvisionref import transforms
@@ -109,7 +110,15 @@ class MaskRCNN:
         trained_model = self.train_model(model, data_loader, data_loader_test, optimizer, on_epoch_end)
 
         # Save model
-        model_folder = os.path.dirname(os.path.realpath(__file__)) + "/models/"
+        if not os.path.isdir(self.parameters.output_folder):
+            os.mkdir(self.parameters.output_folder)
+
+        if not self.parameters.output_folder.endswith('/'):
+            self.parameters.output_folder += '/'
+
+        str_datetime = datetime.now().strftime("%d-%m-%YT%Hh%Mm%Ss")
+        model_folder = self.parameters.output_folder + str_datetime + "/"
+
         if not os.path.isdir(model_folder):
             os.mkdir(model_folder)
 
