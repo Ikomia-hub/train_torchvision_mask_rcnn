@@ -125,7 +125,7 @@ class MaskRCNNTrainProcessFactory(dataprocess.CProcessFactory):
                                 "masks). You can find one in the Ikomia marketplace or implement your own via " \
                                 "the Ikomia API."
         self.info.authors = "Ikomia"
-        self.info.version = "1.1.0"
+        self.info.version = "1.1.1"
         self.info.year = 2020
         self.info.license = "MIT License"
         self.info.repo = "https://github.com/Ikomia-dev"
