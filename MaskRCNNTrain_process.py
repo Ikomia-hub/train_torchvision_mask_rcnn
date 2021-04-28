@@ -3,7 +3,7 @@ from ikomia.dnn import dnntrain, datasetio
 import os
 import copy
 # Your imports below
-from MaskRCNN import MaskRCNN
+import MaskRCNN
 
 
 # --------------------
@@ -66,7 +66,7 @@ class MaskRCNNTrainProcess(dnntrain.TrainProcess):
         else:
             self.setParam(copy.deepcopy(param))
 
-        self.trainer = MaskRCNN(self.getParam())
+        self.trainer = MaskRCNN.MaskRCNN(self.getParam())
 
     def getProgressSteps(self, eltCount=1):
         # Function returning the number of progress steps for this process
@@ -125,7 +125,7 @@ class MaskRCNNTrainProcessFactory(dataprocess.CProcessFactory):
                                 "masks). You can find one in the Ikomia marketplace or implement your own via " \
                                 "the Ikomia API."
         self.info.authors = "Ikomia"
-        self.info.version = "1.1.1"
+        self.info.version = "1.1.2"
         self.info.year = 2020
         self.info.license = "MIT License"
         self.info.repo = "https://github.com/Ikomia-dev"
