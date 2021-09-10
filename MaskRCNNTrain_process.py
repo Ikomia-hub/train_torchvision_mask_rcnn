@@ -3,7 +3,7 @@ from ikomia.core.task import TaskParam
 from ikomia.dnn import dnntrain, datasetio
 import os
 import copy
-import MaskRCNN
+from MaskRCNNTrain import trainer
 
 
 # --------------------
@@ -60,7 +60,7 @@ class MaskRCNNTrainProcess(dnntrain.TrainProcess):
         else:
             self.setParam(copy.deepcopy(param))
 
-        self.trainer = MaskRCNN.MaskRCNN(self.getParam())
+        self.trainer = trainer.MaskRCNN(self.getParam())
         self.enableTensorboard(False)
 
     def getProgressSteps(self, eltCount=1):
