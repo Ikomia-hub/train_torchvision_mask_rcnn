@@ -5,17 +5,17 @@ from ikomia import dataprocess
 # - Interface class to integrate the process with Ikomia application
 # - Inherits dataprocess.CPluginProcessInterface from Ikomia API
 # --------------------
-class MaskRCNNTrain(dataprocess.CPluginProcessInterface):
+class IkomiaPlugin(dataprocess.CPluginProcessInterface):
 
     def __init__(self):
         dataprocess.CPluginProcessInterface.__init__(self)
 
     def getProcessFactory(self):
-        from MaskRCNNTrain.MaskRCNNTrain_process import MaskRCNNTrainProcessFactory
+        from train_torchvision_mask_rcnn.train_torchvision_mask_rcnn_process import TrainMaskRcnnFactory
         # Instantiate process object
-        return MaskRCNNTrainProcessFactory()
+        return TrainMaskRcnnFactory()
 
     def getWidgetFactory(self):
-        from MaskRCNNTrain.MaskRCNNTrain_widget import MaskRCNNTrainWidgetFactory
+        from train_torchvision_mask_rcnn.train_torchvision_mask_rcnn_widget import TrainMaskRcnnWidgetFactory
         # Instantiate associated widget object
-        return MaskRCNNTrainWidgetFactory()
+        return TrainMaskRcnnWidgetFactory()

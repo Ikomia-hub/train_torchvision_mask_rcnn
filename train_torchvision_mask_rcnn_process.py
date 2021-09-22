@@ -3,14 +3,14 @@ from ikomia.core.task import TaskParam
 from ikomia.dnn import dnntrain, datasetio
 import os
 import copy
-from MaskRCNNTrain import trainer
+from train_torchvision_mask_rcnn import trainer
 
 
 # --------------------
 # - Class to handle the process parameters
 # - Inherits core.CProtocolTaskParam from Ikomia API
 # --------------------
-class MaskRCNNTrainParam(TaskParam):
+class TrainMaskRcnnParam(TaskParam):
 
     def __init__(self):
         TaskParam.__init__(self)
@@ -47,7 +47,7 @@ class MaskRCNNTrainParam(TaskParam):
 # - Class which implements the process
 # - Inherits core.CProtocolTask or derived from Ikomia API
 # --------------------
-class MaskRCNNTrainProcess(dnntrain.TrainProcess):
+class TrainMaskRcnn(dnntrain.TrainProcess):
 
     def __init__(self, name, param):
         dnntrain.TrainProcess.__init__(self, name, param)
@@ -56,7 +56,7 @@ class MaskRCNNTrainProcess(dnntrain.TrainProcess):
 
         # Create parameters class
         if param is None:
-            self.setParam(MaskRCNNTrainParam())
+            self.setParam(TrainMaskRcnnParam())
         else:
             self.setParam(copy.deepcopy(param))
 
@@ -108,12 +108,12 @@ class MaskRCNNTrainProcess(dnntrain.TrainProcess):
 # - Factory class to build process object
 # - Inherits dataprocess.CProcessFactory from Ikomia API
 # --------------------
-class MaskRCNNTrainProcessFactory(dataprocess.CTaskFactory):
+class TrainMaskRcnnFactory(dataprocess.CTaskFactory):
 
     def __init__(self):
         dataprocess.CTaskFactory.__init__(self)
         # Set process information as string here
-        self.info.name = "MaskRCNN Train"
+        self.info.name = "train_torchvision_mask_rcnn"
         self.info.shortDescription = "Training process for Mask R-CNN convolutional network."
         self.info.description = "Training process for Mask R-CNN convolutional network. The process enables " \
                                 "to train Mask R-CNN network with ResNet50 backbone for transfer learning. " \
@@ -132,4 +132,4 @@ class MaskRCNNTrainProcessFactory(dataprocess.CTaskFactory):
 
     def create(self, param=None):
         # Create process object
-        return MaskRCNNTrainProcess(self.info.name, param)
+        return TrainMaskRcnn(self.info.name, param)
