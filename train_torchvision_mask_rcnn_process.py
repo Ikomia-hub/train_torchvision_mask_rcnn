@@ -78,7 +78,7 @@ class TrainMaskRcnn(dnntrain.TrainProcess):
 
         # Get dataset path from input
         dataset_input = self.getInput(0)
-        param.classes = dataset_input.getCategoryCount()
+        param.cfg["classes"] = dataset_input.getCategoryCount()
 
         # Call beginTaskRun for initialization
         self.beginTaskRun()
