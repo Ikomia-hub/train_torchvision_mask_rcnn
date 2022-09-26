@@ -38,8 +38,8 @@ class TrainMaskRcnnParam(TaskParam):
         self.cfg["learning_rate"] = float(param_map["learning_rate"])
         self.cfg["momentum"] = float(param_map["momentum"])
         self.cfg["weight_decay"] = float(param_map["weight_decay"])
-        self.cfg["export_pth"] = bool(param_map["export_pth"])
-        self.cfg["export_onnx"] = bool(param_map["export_onnx"])
+        self.cfg["export_pth"] = utils.strtobool(param_map["export_pth"])
+        self.cfg["export_onnx"] = utils.strtobool(param_map["export_onnx"])
         self.cfg["output_folder"] = param_map["output_folder"]
 
 
