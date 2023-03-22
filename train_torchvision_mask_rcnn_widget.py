@@ -55,9 +55,9 @@ class TrainMaskRcnnWidget(core.CWorkflowTaskWidget):
         layout_ptr = qtconversion.PyQtToQt(self.grid_layout)
 
         # Set widget layout
-        self.setLayout(layout_ptr)
+        self.set_layout(layout_ptr)
 
-    def onApply(self):
+    def on_apply(self):
         # Apply button clicked slot
         # Get parameters from widget
         self.parameters.cfg["num_workers"] = self.spin_workers.value()
@@ -70,7 +70,7 @@ class TrainMaskRcnnWidget(core.CWorkflowTaskWidget):
         self.parameters.cfg["output_folder"] = self.browse_folder.path
 
         # Send signal to launch the process
-        self.emitApply(self.parameters)
+        self.emit_apply(self.parameters)
 
 
 # --------------------
