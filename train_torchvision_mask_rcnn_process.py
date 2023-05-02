@@ -1,4 +1,4 @@
-from ikomia import dataprocess
+from ikomia import dataprocess, utils
 from ikomia.core.task import TaskParam
 from ikomia.dnn import dnntrain, datasetio
 import os
