@@ -1,19 +1,117 @@
-# MaskRCNNTrain
+<div align="center">
+  <img src="https://raw.githubusercontent.com/Ikomia-hub/train_torchvision_mask_rcnn/main/icons/pytorch-logo.png" alt="Algorithm icon">
+  <h1 align="center">train_torchvision_mask_rcnn</h1>
+</div>
+<br />
+<p align="center">
+    <a href="https://github.com/Ikomia-hub/train_torchvision_mask_rcnn">
+        <img alt="Stars" src="https://img.shields.io/github/stars/Ikomia-hub/train_torchvision_mask_rcnn">
+    </a>
+    <a href="https://app.ikomia.ai/hub/">
+        <img alt="Website" src="https://img.shields.io/website/http/app.ikomia.ai/en.svg?down_color=red&down_message=offline&up_message=online">
+    </a>
+    <a href="https://github.com/Ikomia-hub/train_torchvision_mask_rcnn/blob/main/LICENSE.md">
+        <img alt="GitHub" src="https://img.shields.io/github/license/Ikomia-hub/train_torchvision_mask_rcnn.svg?color=blue">
+    </a>    
+    <br>
+    <a href="https://discord.com/invite/82Tnw9UGGc">
+        <img alt="Discord community" src="https://img.shields.io/badge/Discord-white?style=social&logo=discord">
+    </a> 
+</p>
 
-Ikomia plugin to train Mask RCNN instance segmentation model. This plugin is based on [PyTorch torchvision implementation](https://github.com/pytorch/vision).
+Training process for Mask R-CNN convolutional network. The process enables to train Mask R-CNN network with ResNet50 backbone for transfer learning. You must connect this process behind a suitable dataset loader (with segmentation masks). You can find one in the Ikomia marketplace or implement your own via the Ikomia API.
 
-### How to use it?
-Here are the steps:
+[Insert illustrative image here. Image must be accessible publicly, in algorithm Github repository for example.
+<img src="images/illustration.png"  alt="Illustrative image" width="30%" height="30%">]
 
-1. Create Ikomia account for free [here](https://ikomia.com/accounts/signup/) (if you don't have one)
-2. Install [Ikomia software](https://ikomia.com/en/download)
-3. Launch the software and log in with your credentials
-4. Open Ikomia Store and install MaskRCNNTrain plugin
-5. Install also a dataset loader plugin that fits to your data or implement it
-6. Add the dataset loader to the workflow
-7. Add the MaskRCNNTrain algorithm to the workflow
-8. Start the workflow and evaluate the training thanks to [MLflow](https://www.mlflow.org/) integration
+## :rocket: Use with Ikomia API
 
-That's it!
+#### 1. Install Ikomia API
 
-**Note**: consult [this tutorial](https://blog.ikomia.com/2021/01/train-deep-learning-models-with-ikomia/) if you need more information.
+We strongly recommend using a virtual environment. If you're not sure where to start, we offer a tutorial [here](https://www.ikomia.ai/blog/a-step-by-step-guide-to-creating-virtual-environments-in-python).
+
+```sh
+pip install ikomia
+```
+
+#### 2. Create your workflow
+
+[Change the sample image URL to fit algorithm purpose]
+
+```python
+import ikomia
+from ikomia.dataprocess.workflow import Workflow
+
+# Init your workflow
+wf = Workflow()
+
+# Add algorithm
+algo = wf.add_task(name="train_torchvision_mask_rcnn", auto_connect=True)
+
+# Run on your image  
+wf.run_on(url="example_image.png")
+```
+
+## :sunny: Use with Ikomia Studio
+
+Ikomia Studio offers a friendly UI with the same features as the API.
+
+- If you haven't started using Ikomia Studio yet, download and install it from [this page](https://www.ikomia.ai/studio).
+
+- For additional guidance on getting started with Ikomia Studio, check out [this blog post](https://www.ikomia.ai/blog/how-to-get-started-with-ikomia-studio).
+
+## :pencil: Set algorithm parameters
+
+[Explain each algorithm parameters]
+
+[Change the sample image URL to fit algorithm purpose]
+
+```python
+import ikomia
+from ikomia.dataprocess.workflow import Workflow
+
+# Init your workflow
+wf = Workflow()
+
+# Add algorithm
+algo = wf.add_task(name="train_torchvision_mask_rcnn", auto_connect=True)
+
+algo.set_parameters({
+    "param1": "value1",
+    "param2": "value2",
+    ...
+})
+
+# Run on your image  
+wf.run_on(url="example_image.png")
+
+```
+
+## :mag: Explore algorithm outputs
+
+Every algorithm produces specific outputs, yet they can be explored them the same way using the Ikomia API. For a more in-depth understanding of managing algorithm outputs, please refer to the [documentation](https://ikomia-dev.github.io/python-api-documentation/advanced_guide/IO_management.html).
+
+```python
+import ikomia
+from ikomia.dataprocess.workflow import Workflow
+
+# Init your workflow
+wf = Workflow()
+
+# Add algorithm
+algo = wf.add_task(name="train_torchvision_mask_rcnn", auto_connect=True)
+
+# Run on your image  
+wf.run_on(url="example_image.png")
+
+# Iterate over outputs
+for output in algo.get_outputs()
+    # Print information
+    print(output)
+    # Export it to JSON
+    output.to_json()
+```
+
+## :fast_forward: Advanced usage 
+
+[optional]
