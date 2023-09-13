@@ -19,10 +19,9 @@
     </a> 
 </p>
 
-Training process for Mask R-CNN convolutional network. The process enables to train Mask R-CNN network with ResNet50 backbone for transfer learning. You must connect this process behind a suitable dataset loader (with segmentation masks). You can find one in the Ikomia marketplace or implement your own via the Ikomia API.
+Train Mask R-CNN instance segmentation model.
 
-[Insert illustrative image here. Image must be accessible publicly, in algorithm Github repository for example.
-<img src="images/illustration.png"  alt="Illustrative image" width="30%" height="30%">]
+![Mask R-CNN segmentation illustration](https://learnopencv.com/wp-content/uploads/2019/06/Introduction-to-PyTorch-2-1024x576.png)
 
 ## :rocket: Use with Ikomia API
 
@@ -36,20 +35,26 @@ pip install ikomia
 
 #### 2. Create your workflow
 
-[Change the sample image URL to fit algorithm purpose]
 
 ```python
-import ikomia
 from ikomia.dataprocess.workflow import Workflow
 
 # Init your workflow
-wf = Workflow()
+wf = Workflow()    
 
-# Add algorithm
-algo = wf.add_task(name="train_torchvision_mask_rcnn", auto_connect=True)
+# Add data loader
+coco = wf.add_task(name="dataset_coco")
+coco.set_parameters({
+    "json_file": "path/to/json/annotation/file",
+    "image_folder": "path/to/image/folder",
+    "task": "instance_segmentation",
+}) 
 
-# Run on your image  
-wf.run_on(url="example_image.png")
+# Add training algorithm
+train = wf.add_task(name="train_torchvision_mask_rcnn", auto_connect=True)
+
+# Launch your training on your data
+wf.run()
 ```
 
 ## :sunny: Use with Ikomia Studio
@@ -62,56 +67,49 @@ Ikomia Studio offers a friendly UI with the same features as the API.
 
 ## :pencil: Set algorithm parameters
 
-[Explain each algorithm parameters]
 
-[Change the sample image URL to fit algorithm purpose]
+- **epochs** (int) - default '15': Number of complete passes through the training dataset.
+- **batch_size** (int) - default '8': Number of samples processed before the model is updated.
+- **learning_rate** (float) - default '0.005': Step size at which the model's parameters are updated during training.
+- **weight_decay** (float) - default '0.0005': Amount of weight decay, regularization method.
+- **momentum** (float) - default '0.9: Optimization technique that accelerates convergence.
+- **input_size** (int) - default '224': Size of the input image.
+- **classes** (int) - default '2': Number of classes
+- **export_pth** (bool) - default 'True'
+- **export_onnx** (bool) - default 'False'
+- **output_folder** (str, *optional*): path to where the model will be saved. 
+- **num_workers** (int) - default '0': How many parallel subprocesses you want to activate when you are loading all your data during your training or validation. 
+
 
 ```python
-import ikomia
 from ikomia.dataprocess.workflow import Workflow
 
 # Init your workflow
-wf = Workflow()
+wf = Workflow()    
 
-# Add algorithm
-algo = wf.add_task(name="train_torchvision_mask_rcnn", auto_connect=True)
+# Add data loader
+coco = wf.add_task(name="dataset_coco")
+coco.set_parameters({
+    "json_file": "path/to/json/annotation/file",
+    "image_folder": "path/to/image/folder",
+    "task": "instance_segmentation",
+}) 
 
-algo.set_parameters({
-    "param1": "value1",
-    "param2": "value2",
-    ...
-})
+# Add training algorithm
+train = wf.add_task(name="train_torchvision_mask_rcnn", auto_connect=True)
+train.set_parameters({
+    "classes": '2',
+    "batch_size": "8",
+    "epochs": "5",
+    "input_size": "240",
+    "momentum": "0.9",
+    "learning_rate": "0.005",
+    "weight_decay": "0.0005",
+    "export_pth": "True",
+    "export_onnx": "False",
+}) 
 
-# Run on your image  
-wf.run_on(url="example_image.png")
-
+# Launch your training on your data
+wf.run()
 ```
 
-## :mag: Explore algorithm outputs
-
-Every algorithm produces specific outputs, yet they can be explored them the same way using the Ikomia API. For a more in-depth understanding of managing algorithm outputs, please refer to the [documentation](https://ikomia-dev.github.io/python-api-documentation/advanced_guide/IO_management.html).
-
-```python
-import ikomia
-from ikomia.dataprocess.workflow import Workflow
-
-# Init your workflow
-wf = Workflow()
-
-# Add algorithm
-algo = wf.add_task(name="train_torchvision_mask_rcnn", auto_connect=True)
-
-# Run on your image  
-wf.run_on(url="example_image.png")
-
-# Iterate over outputs
-for output in algo.get_outputs()
-    # Print information
-    print(output)
-    # Export it to JSON
-    output.to_json()
-```
-
-## :fast_forward: Advanced usage 
-
-[optional]
