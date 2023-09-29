@@ -1,4 +1,4 @@
-from ikomia import dataprocess, utils
+from ikomia import dataprocess, core, utils
 from ikomia.core.task import TaskParam
 from ikomia.dnn import dnntrain, datasetio
 import os
@@ -123,6 +123,8 @@ class TrainMaskRcnnFactory(dataprocess.CTaskFactory):
         self.info.path = "Plugins/Python/Segmentation"
         self.info.icon_path = "icons/pytorch-logo.png"
         self.info.keywords = "object,detection,instance,segmentation,ResNet,pytorch,train"
+        self.info.algo_type = core.AlgoType.TRAIN
+        self.info.algo_tasks = "INSTANCE_SEGMENTATION"
 
     def create(self, param=None):
         # Create process object
