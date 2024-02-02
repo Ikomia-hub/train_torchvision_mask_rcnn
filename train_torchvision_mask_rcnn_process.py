@@ -114,7 +114,7 @@ class TrainMaskRcnnFactory(dataprocess.CTaskFactory):
         self.info.name = "train_torchvision_mask_rcnn"
         self.info.short_description = "Training process for Mask R-CNN convolutional network."
         self.info.authors = "Ikomia"
-        self.info.version = "1.3.0"
+        self.info.version = "1.3.1"
         self.info.year = 2020
         self.info.license = "MIT License"
         self.info.repository = "https://github.com/Ikomia-hub/train_torchvision_mask_rcnn"
